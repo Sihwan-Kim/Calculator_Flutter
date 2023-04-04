@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 //-----------------------------------------------------------------------------------------
 var displayNumber = '0';
@@ -15,7 +16,28 @@ var _disignPage = new DesignPage() ;
 //-----------------------------------------------------------------------------------------
 void main() 
 {
-	runApp(const CalculatorApp());
+//	runApp(const CalculatorApp());
+  	runApp
+	(
+		MultiProvider
+		(
+      		providers:[ ChangeNotifierProvider(create: (_) => ChangeValue()),],
+    		child: CalculatorApp(),
+  		),
+	);
+}
+//-----------------------------------------------------------------------------------------
+class ChangeValue with ChangeNotifier 
+{
+  	double _displayValue = 0 ;
+
+  	double get displayValue => _displayValue;
+
+  	void Change(double value) 
+  	{
+    	_displayValue = value ;
+    	notifyListeners();  //<-- 변경 내용을 전파(알림)
+  	}
 }
 //-----------------------------------------------------------------------------------------
 class CalculatorApp extends StatelessWidget 
@@ -48,23 +70,27 @@ class DesignPage extends State<MainPage>
 		return Scaffold
 		(
 			appBar: AppBar(title: Text('Calculator Program'),),
-			body: Column
+			body: ChangeNotifierProvider
 			(
-				crossAxisAlignment: CrossAxisAlignment.stretch,
-				children: <Widget>
-				[
-					Container
-					(
-						padding: EdgeInsets.all(30),
-						alignment: Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
-						color: Colors.black,
-    					child: displayValue(caption: '$displayNumber', fontsize: displayFontSize,),
-						height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.35,   // 화면의 35%를 차지하도록 설정
-					),
-					ButtonGroupWidget(),
-				],					
+        		create: (BuildContext context) => ChangeValue(),
+				child :Column
+				(
+					crossAxisAlignment: CrossAxisAlignment.stretch,
+					children: <Widget>
+					[
+						Container
+						(
+							padding: EdgeInsets.all(30),
+							alignment: Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
+							color: Colors.black,
+							child: displayValue(caption: '$displayNumber', fontsize: displayFontSize,),
+							height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.35,   // 화면의 35%를 차지하도록 설정
+						),
+						ButtonGroupWidget(),
+					],					
+				),
 			),
-			backgroundColor: Colors.black,   // 화면의 전테 뱌경색을 지정
+			backgroundColor: Colors.black,
 		);
 	}
 }  	
