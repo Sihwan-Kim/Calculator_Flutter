@@ -1,43 +1,42 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_provider/flutter_provider.dart';
+import 'package:provider/provider.dart';
 
 //-----------------------------------------------------------------------------------------
-var displayNumber = '0';
 var makeNumber = '' ;
 var selectedOperator = '+';
-var displayFontSize = 80.0 ;
 var pointExist = false ;
 
 dynamic firstNumber = 0 ;
 dynamic secondNumber = 0 ;
+//-----------------------------------------------------------------------------------------
+class DisplayNumValue with ChangeNotifier 
+{
+  	String _displayValue = '0' ;
+	double _fontSize = 80 ;
 
-var _disignPage = new DesignPage() ;
+  	String get displayValue => _displayValue;
+	double get fontSize => _fontSize;
+
+  	void Display(String value, double fontSize) 
+  	{
+    	_displayValue = value ;
+		_fontSize = fontSize ;
+
+    	notifyListeners();  //<-- 변경 내용을 전파(알림)
+  	}
+}
 //-----------------------------------------------------------------------------------------
 void main() 
 {
-//	runApp(const CalculatorApp());
-  	runApp
+	runApp
 	(
-		MultiProvider
+    	MultiProvider
 		(
-      		providers:[ ChangeNotifierProvider(create: (_) => ChangeValue()),],
-    		child: CalculatorApp(),
-  		),
-	);
-}
-//-----------------------------------------------------------------------------------------
-class ChangeValue with ChangeNotifier 
-{
-  	double _displayValue = 0 ;
-
-  	double get displayValue => _displayValue;
-
-  	void Change(double value) 
-  	{
-    	_displayValue = value ;
-    	notifyListeners();  //<-- 변경 내용을 전파(알림)
-  	}
+      		providers: [ChangeNotifierProvider(create: (_) => DisplayNumValue()),],
+      		child: CalculatorApp(),
+    	),
+  	);
 }
 //-----------------------------------------------------------------------------------------
 class CalculatorApp extends StatelessWidget 
@@ -51,18 +50,12 @@ class CalculatorApp extends StatelessWidget
     	(
       		title: 'Flutter Demo',
       		theme: ThemeData(primarySwatch: Colors.blue,),
-      		home: MainPage(),
+      		home: DesignPage(),
     	);
   	}
 }
 //-----------------------------------------------------------------------------------------
-class MainPage extends StatefulWidget 
-{
-	@override
-  	DesignPage createState() => _disignPage ; // DesignPage();
-}
-//-----------------------------------------------------------------------------------------
-class DesignPage extends State<MainPage>  
+class DesignPage extends StatelessWidget
 {
   	@override
 	Widget build(BuildContext context)
@@ -72,7 +65,7 @@ class DesignPage extends State<MainPage>
 			appBar: AppBar(title: Text('Calculator Program'),),
 			body: ChangeNotifierProvider
 			(
-        		create: (BuildContext context) => ChangeValue(),
+        		create: (BuildContext context) => DisplayNumValue(),
 				child :Column
 				(
 					crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -83,7 +76,7 @@ class DesignPage extends State<MainPage>
 							padding: EdgeInsets.all(30),
 							alignment: Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
 							color: Colors.black,
-							child: displayValue(caption: '$displayNumber', fontsize: displayFontSize,),
+							child: displayValue(),
 							height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.35,   // 화면의 35%를 차지하도록 설정
 						),
 						ButtonGroupWidget(),
@@ -97,17 +90,15 @@ class DesignPage extends State<MainPage>
 //-----------------------------------------------------------------------------------------
 class displayValue extends StatelessWidget
 {
-	displayValue({super.key, required this.caption, required this.fontsize});
-	final String caption ;
-	final double fontsize ;
+	displayValue({super.key});
 
 	@override
 	Widget build(BuildContext context)
 	{
 		return Text
 		(
-			'$caption', 
-			style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: fontsize,),
+			context.watch<DisplayNumValue>().displayValue,   
+			style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: context.read<DisplayNumValue>().fontSize,),
 			textAlign: TextAlign.right,
 		) ;
 	}
@@ -129,10 +120,10 @@ class CalButton extends StatelessWidget
 			{ 
 				switch(buttonKind)
 				{
-					case 0 : _numberOnPressed(caption); break ;
-					case 1 : _operatorOnPressed(caption); break ;
-					case 2 : _resultOnPressed(caption); break ; 
-				}
+					case 0 : _numberOnPressed(context, caption); break ;
+					case 1 : _operatorOnPressed(context, caption); break ;
+					case 2 : _resultOnPressed(context, caption); break ; 
+				} 
 			},
 			style: ElevatedButton.styleFrom
 			(
@@ -225,26 +216,28 @@ class ButtonGroupWidget extends StatelessWidget
   	}
 }
 //-----------------------------------------------------------------------------------------
-void _operatorOnPressed(String st)
+void _operatorOnPressed(BuildContext context, String st)
 {
-	_resultOnPressed('=') ;
+	_resultOnPressed(context, '=') ;
 	selectedOperator = st ;
-	firstNumber = double.parse(displayNumber) ;
+	firstNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
 }
 //-----------------------------------------------------------------------------------------
-void _resultOnPressed(String st)
+void _resultOnPressed(BuildContext context, String st)
 {
+	var display = '0' ;
+	var fontSizes = 80.0 ;
+
 	if(st == 'C')		// clear input
 	{
 		selectedOperator = '+';
 		makeNumber = ''; 
-		displayNumber = '0' ;
 		firstNumber = 0 ;
  		secondNumber = 0 ;
 	}
 	else
 	{
-		secondNumber = double.parse(displayNumber) ;
+		secondNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
 		makeNumber = '';
 
 		switch(selectedOperator)
@@ -255,20 +248,20 @@ void _resultOnPressed(String st)
 			case '÷' : firstNumber = firstNumber / secondNumber ;	break ;
 		}
 
-		displayNumber = firstNumber.toString();
+		display = firstNumber.toString();
 		firstNumber = 0 ;
 		selectedOperator = '+';
 	}
 	 pointExist = false ;
 
-	if(displayNumber.length < 7) displayFontSize = 80.0 ;  // 글자 크기를 선택 
-	else displayFontSize = 50 ;
-
-	_disignPage.setState(() { displayNumber ;});  // 화면을 갱신한다. 
+	if(display.length >= 7) fontSizes = 50 ;  // 글자 크기를 선택 
+	
+	context.read<DisplayNumValue>().Display(display, fontSizes) ;
 }
 //-----------------------------------------------------------------------------------------
-void _numberOnPressed(String st)  		// 숫자키 입력 이벤트 함수 
+void _numberOnPressed(BuildContext context, String st)  		// 숫자키 입력 이벤트 함수 
 {
+	var fontSizes = 80.0 ;
 	bool inputAdd = true ; 
 
 	if(makeNumber.length < 9)  // 숫자는 9자리 까지만 
@@ -290,13 +283,9 @@ void _numberOnPressed(String st)  		// 숫자키 입력 이벤트 함수
 		else if(st == '0' && makeNumber.isEmpty == true)  inputAdd = false;
 		
 		if(inputAdd == true) makeNumber += st ;
+		if(makeNumber.length >= 7) fontSizes = 50 ;  // 글자 크기를 선택 
 
-		displayNumber = makeNumber ;
-
-		if(displayNumber.length < 7) displayFontSize = 80.0 ;  // 글자 크기를 선택 
-		else displayFontSize = 50 ;
-
-		_disignPage.setState(() { displayNumber ;});  // 화면을 갱신한다. 
+		context.read<DisplayNumValue>().Display(makeNumber, fontSizes) ;
 	}
 }
 //-----------------------------------------------------------------------------------------
