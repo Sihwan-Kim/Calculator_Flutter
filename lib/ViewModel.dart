@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:calculator_flutter/Model.dart' ;
 import 'package:provider/provider.dart';
 
-
 var calcuControl = new CalculatorControl() ;
 
 class CalculatorControl 
@@ -14,7 +13,7 @@ class CalculatorControl
 
 	dynamic firstNumber = 0 ;
 	dynamic secondNumber = 0 ;
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	void teCalculatorControlm()
 	{
 	}
@@ -92,7 +91,7 @@ class CalculatorControl
 	{
 		var fontSizes = 80.0 ;
 
-		if(Number.length >= 7) fontSizes = 50 ;  // 글자 크기를 선택 
+		if(Number.length >= 8) fontSizes = 50 ;  // 글자 크기를 선택 
 
 		context.read<DisplayNumValue>().Display(Number, fontSizes) ;
 	}
