@@ -30,11 +30,11 @@ void main()
 {
 	runApp
 	(
-    	MultiProvider
+		MultiProvider
 		(
-      		providers: [ChangeNotifierProvider(create: (_) => DisplayNumValue()),],
-      		child: CalculatorApp(),
-    	),
+			providers: [ChangeNotifierProvider(create: (_) => DisplayNumValue()),],
+			child: CalculatorApp(),
+		),
   	);
 }
 //-----------------------------------------------------------------------------------------
@@ -46,11 +46,11 @@ class CalculatorApp extends StatelessWidget
 	Widget build(BuildContext context)  // This widget is the root of your application.
 	{
 		return MaterialApp
-    	(
-      		title: 'Flutter Demo',
-      		theme: ThemeData(primarySwatch: Colors.blue,),
-      		home: DesignPage(),
-    	);
+		(
+			title: 'Flutter Demo',
+			theme: ThemeData(primarySwatch: Colors.blue,),
+			home: DesignPage(),
+		);
   	}
 }
 //-----------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ class DesignPage extends StatelessWidget
 			appBar: AppBar(title: Text('Calculator Program'),),
 			body: ChangeNotifierProvider
 			(
-        		create: (BuildContext context) => DisplayNumValue(),
+				create: (BuildContext context) => DisplayNumValue(),
 				child :Column
 				(
 					crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -142,76 +142,76 @@ class ButtonGroupWidget extends StatelessWidget
   	@override
   	Widget build(BuildContext context) 
 	{
-    	return Table
+		return Table
 		(
 			border: TableBorder.all(),
-      		columnWidths: const <int, TableColumnWidth>
+			columnWidths: const <int, TableColumnWidth>
 			{
-        		0: FlexColumnWidth(),
-        		1: FlexColumnWidth(),
-        		2: FlexColumnWidth(),
+				0: FlexColumnWidth(),
+				1: FlexColumnWidth(),
+				2: FlexColumnWidth(),
 				3: FlexColumnWidth(),  
-      		},
-      		defaultVerticalAlignment: TableCellVerticalAlignment.middle,	
-      		children: <TableRow>
+			},
+			defaultVerticalAlignment: TableCellVerticalAlignment.middle,	
+			children: <TableRow>
 			[
-        		TableRow
+				TableRow
 				(
 					decoration: const BoxDecoration(color: Colors.black,),
-          			children: <Widget>
+					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: 'C', color: Colors.grey, buttonKind: 2,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '%', color: Colors.grey, buttonKind: 1,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '⇍', color: Colors.grey, buttonKind: 1,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '÷', color: Colors.orange, buttonKind: 1,),),
-          			],
-        		),
-        		TableRow
+					],
+				),
+				TableRow
 				(
 					decoration: const BoxDecoration(color: Colors.black,),  
-          			children: <Widget>
+					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '7', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '8', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '9', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '×', color: Colors.orange, buttonKind: 1,),),
-          			],
-        		),
+					],
+				),
 				TableRow
 				(
 					decoration: const BoxDecoration(color: Colors.black,),
-          			children: <Widget>
+					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '4', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '5', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '6', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '−', color: Colors.orange,buttonKind: 1,),),
-          			],
-        		),
+					],
+				),
 				TableRow
 				(
 					decoration: const BoxDecoration(color: Colors.black,),
-          			children: <Widget>
+					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '1', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '2', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '3', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '+', color: Colors.orange, buttonKind: 1,),),
-          			],
-        		),			
+					],
+				),			
 				TableRow
 				(
 					decoration: const BoxDecoration(color: Colors.black,),
-          			children: <Widget>
+					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '+/-', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '0', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '.', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '=', color: Colors.orange, buttonKind: 2,),),
-          			],
-        		),		
-      		],
-    	);
+					],
+				),		
+			],
+		);
   	}
 }
 //-----------------------------------------------------------------------------------------
