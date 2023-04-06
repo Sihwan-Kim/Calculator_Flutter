@@ -12,7 +12,7 @@ dynamic secondNumber = 0 ;
 //-----------------------------------------------------------------------------------------
 class DisplayNumValue with ChangeNotifier 
 {
-    String _displayValue = '0' ;
+	String _displayValue = '0' ;
 	double _fontSize = 80 ;
 
   	String get displayValue => _displayValue;
