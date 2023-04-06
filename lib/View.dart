@@ -42,7 +42,7 @@ class DesignPage extends StatelessWidget
 							alignment: Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
 							color: Colors.black,
 							child: displayValue(),
-							height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.35,   // 화면의 35%를 차지하도록 설정
+							height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25,   // 화면의 35%를 차지하도록 설정
 						),
 						ButtonGroupWidget(),
 					],					
@@ -87,7 +87,8 @@ class CalButton extends StatelessWidget
 				{
 					case 0 : calcuControl.numberOnPressed(context, caption); break ;
 					case 1 : calcuControl.operatorOnPressed(context, caption); break ;
-					case 2 : calcuControl.resultOnPressed(context, caption); break ; 
+					case 2 : calcuControl.resultOnPressed(context); break ; 
+          case 3 : calcuControl.functionOnPressed(context, caption) ;
 				} 
 			},
 			style: ElevatedButton.styleFrom
@@ -116,9 +117,9 @@ class ButtonGroupWidget extends StatelessWidget
 				(
 					children: <Widget>
 					[
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: 'C', color: Colors.grey, buttonKind: 2,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '%', color: Colors.grey, buttonKind: 1,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '⇍', color: Colors.grey, buttonKind: 1,),),
+						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: 'C', color: Colors.grey, buttonKind: 3,),),
+						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '%', color: Colors.grey, buttonKind: 3,),),
+						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '⇍', color: Colors.grey, buttonKind: 3,),),
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '÷', color: Colors.orange, buttonKind: 1,),),
 					],
 				),

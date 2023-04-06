@@ -20,14 +20,36 @@ class CalculatorControl
 	//-----------------------------------------------------------------------------------------
 	void operatorOnPressed(BuildContext context, String st)
 	{
-		resultOnPressed(context, '=') ;
+		resultOnPressed(context) ;
 
 		selectedOperator = st ;
 		firstNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
 	}
 	//-----------------------------------------------------------------------------------------
-	void resultOnPressed(BuildContext context, String st)
+	void resultOnPressed(BuildContext context)
 	{
+		var display = '0' ;
+		secondNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
+		makeNumber = '';
+
+		switch(selectedOperator)
+		{
+			case '+' : firstNumber = firstNumber + secondNumber ;	break ;
+			case '−' : firstNumber = firstNumber - secondNumber ;	break ;
+			case '×' : firstNumber = firstNumber * secondNumber ;	break ;
+			case '÷' : firstNumber = firstNumber / secondNumber ;	break ;
+		}
+
+		display = firstNumber.toString();
+		firstNumber = 0 ;
+		selectedOperator = '+';			
+
+		_display(context, display) ;
+		pointExist = false ;		
+	}
+	//-----------------------------------------------------------------------------------------
+  void functionOnPressed(BuildContext context, String st)
+  {
 		var display = '0' ;
 
 		if(st == 'C')		// clear input
@@ -37,28 +59,34 @@ class CalculatorControl
 			firstNumber = 0 ;
 			secondNumber = 0 ;
 		}
+		else if(st == '%')
+		{
+			var imsi = double.parse(context.read<DisplayNumValue>().displayValue) / 100 ;
+
+			if(selectedOperator == '+' || selectedOperator == '-' )
+			{
+				display = (imsi * firstNumber).toString();
+			}
+			else
+			{
+				display = imsi.toString();
+			}
+		}
 		else
 		{
-			secondNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
+			var imsiString = context.read<DisplayNumValue>().displayValue ;
 			makeNumber = '';
 
-			switch(selectedOperator)
+			if(imsiString.length > 1)
 			{
-				case '+' : firstNumber = firstNumber + secondNumber ;	break ;
-				case '−' : firstNumber = firstNumber - secondNumber ;	break ;
-				case '×' : firstNumber = firstNumber * secondNumber ;	break ;
-				case '÷' : firstNumber = firstNumber / secondNumber ;	break ;
+				display = imsiString.substring(0, imsiString.length-1) ;
+				makeNumber = display;
 			}
-
-			display = firstNumber.toString();
-			firstNumber = 0 ;
-			selectedOperator = '+';			
 		}
 
 		_display(context, display) ;
-		pointExist = false ;		
-	}
-	//-----------------------------------------------------------------------------------------
+  }
+  //-----------------------------------------------------------------------------------------
 	void numberOnPressed(BuildContext context, String st)  		// 숫자키 입력 이벤트 함수 
 	{
 		bool inputAdd = true ; 
