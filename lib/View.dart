@@ -72,7 +72,7 @@ class displayValue extends StatelessWidget
 class CalButton extends StatelessWidget
 {
 	CalButton({super.key, required this.caption, required this.color, required this.buttonKind});
-	final String caption ;  // 립력된 버튼의 문자 
+	final String caption ;  // 입력된 버튼의 문자 
 	final Color color;      // 버튼의 색
 	final int buttonKind;   // 입력된 버튼의 기능(0:숫자, 1:연산, 2:기능)
 
@@ -110,20 +110,10 @@ class ButtonGroupWidget extends StatelessWidget
 	{
 		return Table
 		(
-			border: TableBorder.all(),
-			columnWidths: const <int, TableColumnWidth>
-			{
-				0: FlexColumnWidth(),
-				1: FlexColumnWidth(),
-				2: FlexColumnWidth(),
-				3: FlexColumnWidth(),  
-			},
-			defaultVerticalAlignment: TableCellVerticalAlignment.middle,	
 			children: <TableRow>
 			[
 				TableRow
 				(
-					decoration: const BoxDecoration(color: Colors.black,),
 					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: 'C', color: Colors.grey, buttonKind: 2,),),
@@ -134,7 +124,6 @@ class ButtonGroupWidget extends StatelessWidget
 				),
 				TableRow
 				(
-					decoration: const BoxDecoration(color: Colors.black,),  
 					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '7', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
@@ -145,7 +134,6 @@ class ButtonGroupWidget extends StatelessWidget
 				),
 				TableRow
 				(
-					decoration: const BoxDecoration(color: Colors.black,),
 					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '4', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
@@ -156,7 +144,6 @@ class ButtonGroupWidget extends StatelessWidget
 				),
 				TableRow
 				(
-					decoration: const BoxDecoration(color: Colors.black,),
 					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '1', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
@@ -167,7 +154,6 @@ class ButtonGroupWidget extends StatelessWidget
 				),			
 				TableRow
 				(
-					decoration: const BoxDecoration(color: Colors.black,),
 					children: <Widget>
 					[
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '+/-', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
