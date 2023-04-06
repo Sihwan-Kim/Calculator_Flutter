@@ -4,13 +4,10 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+플로터로 만든 계산기 프로그램 입니다. 
+UI는 아이폰의 계산기 어플을 참고하여 디자인 하였습니다. 
 
-A few resources to get you started if this is your first Flutter project:
+아직 완전한 버젼은 아니고 지속적으로 수정중에 있습니다. 
+오른쪽이 현재 만들고 있는 어플입니다. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![img1 daumcdn](https://user-images.githubusercontent.com/24783470/230302418-7ba48fc6-f311-4acf-af83-13150884e6d6.png)
