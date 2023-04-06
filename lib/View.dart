@@ -88,7 +88,7 @@ class CalButton extends StatelessWidget
 					case 0 : calcuControl.numberOnPressed(context, caption); break ;
 					case 1 : calcuControl.operatorOnPressed(context, caption); break ;
 					case 2 : calcuControl.resultOnPressed(context); break ; 
-          case 3 : calcuControl.functionOnPressed(context, caption) ;
+          			case 3 : calcuControl.functionOnPressed(context, caption) ;
 				} 
 			},
 			style: ElevatedButton.styleFrom
