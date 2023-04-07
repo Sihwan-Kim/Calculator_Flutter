@@ -42,14 +42,19 @@ class CalculatorControl
 
 		display = firstNumber.toString();
 		firstNumber = 0 ;
-		selectedOperator = '+';			
+		selectedOperator = '+';		
+
+		if(display.length >= 3 && display.startsWith('.0', display.length-2)) 
+		{
+			display = display.substring(0, display.length-2) ;  // 정수일 경우 소수점 이하 지워라...
+		}	
 
 		_display(context, display) ;
 		pointExist = false ;		
 	}
 	//-----------------------------------------------------------------------------------------
-  void functionOnPressed(BuildContext context, String st)
-  {
+	void functionOnPressed(BuildContext context, String st)
+	{
 		var display = '0' ;
 
 		if(st == 'C')		// clear input
@@ -85,40 +90,39 @@ class CalculatorControl
 		}
 
 		_display(context, display) ;
-  }
-  //-----------------------------------------------------------------------------------------
+	}
+	//-----------------------------------------------------------------------------------------
 	void numberOnPressed(BuildContext context, String st)  		// 숫자키 입력 이벤트 함수 
 	{
 		bool inputAdd = true ; 
 
-		if(makeNumber.length < 9)  // 숫자는 9자리 까지만 
+		if(st == '.') // 소숫점이 눌려졌을 경우 
 		{
-			if(st == '.') // 소숫점이 눌려졌을 경우 
-			{
-				if(makeNumber.isEmpty == true)
-				{ 
-					makeNumber += '0.';
-					inputAdd = false ;
-				}
-				else
-				{
-					if(pointExist == true) inputAdd = false ; // 소숫점이 없을 경우만 추가
-				}
-
-				pointExist = true ;
+			if(makeNumber.isEmpty == true)
+			{ 
+				makeNumber += '0.';
+				inputAdd = false ;
 			}
-			else if(st == '0' && makeNumber.isEmpty == true)  inputAdd = false;
-			
-			if(inputAdd == true) makeNumber += st ;
+			else
+			{
+				if(pointExist == true) inputAdd = false ; // 소숫점이 없을 경우만 추가
+			}
 
-			_display(context, makeNumber) ;
+			pointExist = true ;
 		}
+		else if(st == '0' && makeNumber.isEmpty == true)  inputAdd = false;
+		
+		if(inputAdd == true)
+		{
+	 		makeNumber += st ;
+		}
+
+		_display(context, makeNumber) ;
 	}
 	//-----------------------------------------------------------------------------------------
 	void _display(BuildContext context, String Number)  // private member function
 	{
 		var fontSizes = 80.0 ;
-
 		if(Number.length >= 8) fontSizes = 50 ;  // 글자 크기를 선택 
 
 		context.read<DisplayNumValue>().Display(Number, fontSizes) ;
