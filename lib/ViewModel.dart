@@ -43,6 +43,7 @@ class CalculatorControl
 		display = firstNumber.toString();
 		firstNumber = 0 ;
 		selectedOperator = '+';		
+		pointExist = false ;		
 
 		if(display.length >= 3 && display.startsWith('.0', display.length-2)) 
 		{
@@ -50,7 +51,6 @@ class CalculatorControl
 		}	
 
 		_display(context, display) ;
-		pointExist = false ;		
 	}
 	//-----------------------------------------------------------------------------------------
 	void functionOnPressed(BuildContext context, String st)
