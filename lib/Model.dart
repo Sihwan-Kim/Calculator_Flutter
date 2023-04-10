@@ -1,20 +1,17 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 //-----------------------------------------------------------------------------------------
-class DisplayNumValue with ChangeNotifier 
+class DisplayNumValue extends GetxController 
 {
-  String _displayValue = '0' ;
-  double _fontSize = 80 ;
+	String displayValue = '0' ;
+  	double fontSize = 80 ;
 
-  String get displayValue => _displayValue;
-  double get fontSize => _fontSize;
-
-  void Display(String value, double fontSize) 
+  	void Display(String value, double fontSize) 
 	{
-    _displayValue = value ;
-    _fontSize = fontSize ;
+    	displayValue = value ;
+    	fontSize = fontSize ;
     
-    notifyListeners();  //<-- 변경 내용을 전파(알림)
+    	update();
 	}
 }
-//-----------------------------------------------------------------------------------------

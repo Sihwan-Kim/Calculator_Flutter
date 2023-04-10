@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:calculator_flutter/Model.dart' ;
@@ -7,7 +6,7 @@ import 'package:get/get.dart';
 
 class CalculatorApp extends StatelessWidget 
 {
-  	const CalculatorApp({super.key});
+	const CalculatorApp({super.key});
   
 	@override  
 	Widget build(BuildContext context)  // This widget is the root of your application.
@@ -26,28 +25,29 @@ class DesignPage extends StatelessWidget
   	@override
 	Widget build(BuildContext context)
 	{
+		Get.put(DisplayNumValue()); // controller 등록
+
 		return Scaffold
 		(
-			appBar: AppBar(title: Text('Calculator Program'),),
-			body: ChangeNotifierProvider
+			appBar: AppBar(title: const Text('Calculator Program'),),
+			body: Column
 			(
-				create: (BuildContext context) => DisplayNumValue(),
-				child :Column
-				(
-					crossAxisAlignment: CrossAxisAlignment.stretch,
-					children: <Widget>
-					[
-						Container
+				crossAxisAlignment: CrossAxisAlignment.stretch,
+				children: <Widget>
+				[
+					Container
+					(
+						padding: const EdgeInsets.all(30),
+						alignment: const Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
+						color: Colors.black,
+						height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25,   // 화면의 35%를 차지하도록 설정
+						child: GetBuilder<DisplayNumValue>
 						(
-							padding: EdgeInsets.all(30),
-							alignment: Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
-							color: Colors.black,
-							child: displayValue(),
-							height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25,   // 화면의 35%를 차지하도록 설정
+							builder:(controller) { return displayValue() ; },
 						),
-						ButtonGroupWidget(),
-					],					
-				),
+					),
+					const ButtonGroupWidget(),
+				],					
 			),
 			backgroundColor: Colors.black,
 		);
@@ -56,14 +56,14 @@ class DesignPage extends StatelessWidget
 //-----------------------------------------------------------------------------------------
 class displayValue extends StatelessWidget
 {
-	displayValue({super.key});
+	const displayValue({super.key});
 
 	@override
 	Widget build(BuildContext context)
 	{
 		return Text
 		(
-			context.watch<DisplayNumValue>().displayValue,   
+		    context.watch<DisplayNumValue>().displayValue,   
 			style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: context.read<DisplayNumValue>().fontSize,),
 			textAlign: TextAlign.right,
 		) ;
@@ -98,7 +98,7 @@ class CalButton extends StatelessWidget
 				fixedSize: Size((MediaQuery.of(context).size.width/4)-30, (MediaQuery.of(context).size.width/4)-20), 
 				shape: const CircleBorder(),
 			),
-			child: Text('$caption', style: TextStyle(fontSize: 40,),),
+			child: Text(caption, style: const TextStyle(fontSize: 40,),),
 		);
 	}
 }
@@ -118,50 +118,50 @@ class ButtonGroupWidget extends StatelessWidget
 				(
 					children: <Widget>
 					[
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: 'C', color: Colors.grey, buttonKind: 3,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '%', color: Colors.grey, buttonKind: 3,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '⇍', color: Colors.grey, buttonKind: 3,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '÷', color: Colors.orange, buttonKind: 1,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: 'C', color: Colors.grey, buttonKind: 3,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '%', color: Colors.grey, buttonKind: 3,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '⇍', color: Colors.grey, buttonKind: 3,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '÷', color: Colors.orange, buttonKind: 1,),),
 					],
 				),
 				TableRow
 				(
 					children: <Widget>
 					[
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '7', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '8', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '9', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '×', color: Colors.orange, buttonKind: 1,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '7', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '8', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '9', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '×', color: Colors.orange, buttonKind: 1,),),
 					],
 				),
 				TableRow
 				(
 					children: <Widget>
 					[
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '4', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '5', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '6', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '−', color: Colors.orange,buttonKind: 1,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '4', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '5', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '6', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '−', color: Colors.orange,buttonKind: 1,),),
 					],
 				),
 				TableRow
 				(
 					children: <Widget>
 					[
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '1', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '2', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '3', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '+', color: Colors.orange, buttonKind: 1,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '1', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '2', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '3', color: const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '+', color: Colors.orange, buttonKind: 1,),),
 					],
 				),			
 				TableRow
 				(
 					children: <Widget>
 					[
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '+/-', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '0', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '.', color: Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
-						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '=', color: Colors.orange, buttonKind: 2,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '+/-', color:const  Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '0', color: const Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '.', color: const Color.fromARGB(255, 61, 61, 61), buttonKind: 0,),),
+						Padding(padding: const EdgeInsets.all(5), child: CalButton(caption: '=', color: Colors.orange, buttonKind: 2,),),
 					],
 				),		
 			],
