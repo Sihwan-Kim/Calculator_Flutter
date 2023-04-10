@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:calculator_flutter/Model.dart' ;
 import 'package:calculator_flutter/ViewModel.dart' ;
+import 'package:get/get.dart';
 
 class CalculatorApp extends StatelessWidget 
 {
@@ -11,7 +12,7 @@ class CalculatorApp extends StatelessWidget
 	@override  
 	Widget build(BuildContext context)  // This widget is the root of your application.
 	{
-		return MaterialApp
+		return GetMaterialApp
 		(
 			title: 'Flutter Demo',
 			theme: ThemeData(primarySwatch: Colors.blue,),
@@ -88,7 +89,7 @@ class CalButton extends StatelessWidget
 					case 0 : calcuControl.numberOnPressed(context, caption); break ;
 					case 1 : calcuControl.operatorOnPressed(context, caption); break ;
 					case 2 : calcuControl.resultOnPressed(context); break ; 
-          			case 3 : calcuControl.functionOnPressed(context, caption) ;
+					case 3 : calcuControl.functionOnPressed(context, caption) ;
 				} 
 			},
 			style: ElevatedButton.styleFrom
