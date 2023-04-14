@@ -15,16 +15,16 @@ class CalculatorControl
 	dynamic firstNumber = 0 ;
 	dynamic secondNumber = 0 ;
 	//-----------------------------------------------------------------------------------------
-	void operatorOnPressed(BuildContext context, String st)
+	void operatorOnPressed(String st)
 	{
-		resultOnPressed(context) ;
+		resultOnPressed() ;
     final controller = Get.put(DisplayNumValue());
     
 		firstNumber = double.parse(controller.displayValue) ;		
 		selectedOperator = st ;		
 	}
 	//-----------------------------------------------------------------------------------------
-	void resultOnPressed(BuildContext context)
+	void resultOnPressed()
 	{
 		var display = '0' ;
     final controller = Get.put(DisplayNumValue());
@@ -50,10 +50,10 @@ class CalculatorControl
 			display = display.substring(0, display.length-2) ;  // 정수일 경우 소수점 이하 지워라...
 		}	
 
-		_display(context, display) ;
+		_display(display) ;
 	}
 	//-----------------------------------------------------------------------------------------
-	void functionOnPressed(BuildContext context, String st)
+	void functionOnPressed(String st)
 	{
 		var display = '0' ;
     final controller = Get.put(DisplayNumValue());
@@ -90,10 +90,10 @@ class CalculatorControl
 			}
 		}
 
-		_display(context, display) ;
+		_display(display) ;
 	}
 	//-----------------------------------------------------------------------------------------
-	void numberOnPressed(BuildContext context, String st)  		// 숫자키 입력 이벤트 함수 
+	void numberOnPressed(String st)  		// 숫자키 입력 이벤트 함수 
 	{
 		bool inputAdd = true ; 
 
@@ -111,22 +111,22 @@ class CalculatorControl
 
 			pointExist = true ;
 		}
-		else if(st == '0' && makeNumber.isEmpty == true)  inputAdd = false;
+		else if(st == '0' && makeNumber.isEmpty == true)
+    {
+      inputAdd = false;
+    }  
 		
-		if(inputAdd == true)
-		{
-	 		makeNumber += st ;
-		}
+		if(inputAdd == true) makeNumber += st ;
 
-		_display(context, makeNumber) ;
+	  _display(makeNumber) ;
 	}
 	//-----------------------------------------------------------------------------------------
-	void _display(BuildContext context, String Number)  // private member function
+	void _display(String Number)  // private member function
 	{
-		var fontSizes = 80.0 ;
-		if(Number.length >= 8) fontSizes = 50 ;  // 글자 크기를 선택 
+		final controller = Get.put(DisplayNumValue());
+    var fontSizes = 80.0 ;
 
-    final controller = Get.put(DisplayNumValue());
+		if(Number.length >= 8) fontSizes = 50 ;  // 글자 크기를 선택     
 
     controller.displayNumber(Number, fontSizes) ;		
 	}
