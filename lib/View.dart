@@ -17,15 +17,15 @@ class CalculatorApp extends StatelessWidget
 			theme: ThemeData(primarySwatch: Colors.blue,),
 			home: DesignPage(),
 		);
-  	}
+  }
 }
 //-----------------------------------------------------------------------------------------
 class DesignPage extends StatelessWidget
 {
-  	@override
+  @override
 	Widget build(BuildContext context)
 	{
-		Get.put(DisplayNumValue()); // controller 등록
+    final controller = Get.put(DisplayNumValue());
 
 		return Scaffold
 		(
@@ -43,7 +43,12 @@ class DesignPage extends StatelessWidget
 						height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25,   // 화면의 35%를 차지하도록 설정
 						child: GetBuilder<DisplayNumValue>
 						(
-							builder:(controller) { return displayValue() ; },
+							builder:(controller) 
+              { return Text(controller.displayValue, 
+                            style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: controller.fontSize,),
+			                      textAlign: TextAlign.right,
+                           ) ; 
+              },
 						),
 					),
 					const ButtonGroupWidget(),
@@ -53,22 +58,6 @@ class DesignPage extends StatelessWidget
 		);
 	}
 }  	
-//-----------------------------------------------------------------------------------------
-class displayValue extends StatelessWidget
-{
-	const displayValue({super.key});
-
-	@override
-	Widget build(BuildContext context)
-	{
-		return Text
-		(
-		    context.watch<DisplayNumValue>().displayValue,   
-			style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: context.read<DisplayNumValue>().fontSize,),
-			textAlign: TextAlign.right,
-		) ;
-	}
-}
 //-----------------------------------------------------------------------------------------
 class CalButton extends StatelessWidget
 {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:calculator_flutter/Model.dart' ;
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 var calcuControl = new CalculatorControl() ;
 
@@ -14,22 +15,21 @@ class CalculatorControl
 	dynamic firstNumber = 0 ;
 	dynamic secondNumber = 0 ;
 	//-----------------------------------------------------------------------------------------
-	void teCalculatorControlm()
-	{
-	}
-	//-----------------------------------------------------------------------------------------
 	void operatorOnPressed(BuildContext context, String st)
 	{
 		resultOnPressed(context) ;
-
-		selectedOperator = st ;
-		firstNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
+    final controller = Get.put(DisplayNumValue());
+    
+		firstNumber = double.parse(controller.displayValue) ;		
+		selectedOperator = st ;		
 	}
 	//-----------------------------------------------------------------------------------------
 	void resultOnPressed(BuildContext context)
 	{
 		var display = '0' ;
-		secondNumber = double.parse(context.read<DisplayNumValue>().displayValue) ;
+    final controller = Get.put(DisplayNumValue());
+
+		secondNumber = double.parse(controller.displayValue) ;		
 		makeNumber = '';
 
 		switch(selectedOperator)
@@ -56,6 +56,7 @@ class CalculatorControl
 	void functionOnPressed(BuildContext context, String st)
 	{
 		var display = '0' ;
+    final controller = Get.put(DisplayNumValue());
 
 		if(st == 'C')		// clear input
 		{
@@ -66,7 +67,7 @@ class CalculatorControl
 		}
 		else if(st == '%')
 		{
-			var imsi = double.parse(context.read<DisplayNumValue>().displayValue) / 100 ;
+			var imsi = double.parse(controller.displayValue) / 100 ;
 
 			if(selectedOperator == '+' || selectedOperator == '-' )
 			{
@@ -79,7 +80,7 @@ class CalculatorControl
 		}
 		else
 		{
-			var imsiString = context.read<DisplayNumValue>().displayValue ;
+			var imsiString = controller.displayValue ;
 			makeNumber = '';
 
 			if(imsiString.length > 1)
@@ -125,7 +126,9 @@ class CalculatorControl
 		var fontSizes = 80.0 ;
 		if(Number.length >= 8) fontSizes = 50 ;  // 글자 크기를 선택 
 
-		context.read<DisplayNumValue>().Display(Number, fontSizes) ;
+    final controller = Get.put(DisplayNumValue());
+
+    controller.displayNumber(Number, fontSizes) ;		
 	}
 	//-----------------------------------------------------------------------------------------
 }

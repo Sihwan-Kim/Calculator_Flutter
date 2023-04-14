@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 class DisplayNumValue extends GetxController 
 {
 	String displayValue = '0' ;
-  	double fontSize = 80 ;
+  double fontSize = 80.0 ;
 
-  	void Display(String value, double fontSize) 
+  void displayNumber(String displayValue, double fontSize) 
 	{
-    	displayValue = value ;
-    	fontSize = fontSize ;
-    
-    	update();
+    	this.displayValue = displayValue ;
+    	this.fontSize = fontSize ;
+
+      update();
 	}
 }
