@@ -5,7 +5,7 @@ import 'package:calculator_flutter/ViewModel.dart' ;
 
 class CalculatorApp extends StatelessWidget 
 {
-  	const CalculatorApp({super.key});
+  const CalculatorApp({super.key});
   
 	@override  
 	Widget build(BuildContext context)  // This widget is the root of your application.
@@ -16,17 +16,17 @@ class CalculatorApp extends StatelessWidget
 			theme: ThemeData(primarySwatch: Colors.blue,),
 			home: DesignPage(),
 		);
-  	}
+  }
 }
 //-----------------------------------------------------------------------------------------
 class DesignPage extends StatelessWidget
 {
-  	@override
+  @override
 	Widget build(BuildContext context)
 	{
 		return Scaffold
 		(
-			appBar: AppBar(title: Text('Calculator Program'),),
+			appBar: AppBar(title: const Text('Calculator Program'),),
 			body: ChangeNotifierProvider
 			(
 				create: (BuildContext context) => DisplayNumValue(),
@@ -35,15 +35,21 @@ class DesignPage extends StatelessWidget
 					crossAxisAlignment: CrossAxisAlignment.stretch,
 					children: <Widget>
 					[
-						Container
-						(
-							padding: EdgeInsets.all(30),
-							alignment: Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
-							color: Colors.black,
-							child: displayValue(),
-							height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.25,   // 화면의 35%를 차지하도록 설정
-						),
-						ButtonGroupWidget(),
+            Flexible
+            (
+              flex: 1,
+              child: Container
+              (
+                padding: const EdgeInsets.all(30),
+                alignment: const Alignment(1.0, 1.0),   // 내부 위젯의 위치를 우측 하단으로 설정 
+                child: const DisplayValue(),
+              ),
+            ),
+            const Flexible
+            (
+              flex: 3,
+              child: ButtonGroupWidget(), 
+            ),
 					],					
 				),
 			),
@@ -52,9 +58,9 @@ class DesignPage extends StatelessWidget
 	}
 }  	
 //-----------------------------------------------------------------------------------------
-class displayValue extends StatelessWidget
+class DisplayValue extends StatelessWidget
 {
-	displayValue({super.key});
+  const	DisplayValue({super.key});
 
 	@override
 	Widget build(BuildContext context)
@@ -87,7 +93,7 @@ class CalButton extends StatelessWidget
 					case 0 : calcuControl.numberOnPressed(context, caption); break ;
 					case 1 : calcuControl.operatorOnPressed(context, caption); break ;
 					case 2 : calcuControl.resultOnPressed(context); break ; 
-          			case 3 : calcuControl.functionOnPressed(context, caption) ;
+          case 3 : calcuControl.functionOnPressed(context, caption) ;
 				} 
 			},
 			style: ElevatedButton.styleFrom
@@ -96,17 +102,17 @@ class CalButton extends StatelessWidget
 				fixedSize: Size((MediaQuery.of(context).size.width/4)-30, (MediaQuery.of(context).size.width/4)-20), 
 				shape: const CircleBorder(),
 			),
-			child: Text('$caption', style: TextStyle(fontSize: 40,),),
+			child: Text(caption, style: const TextStyle(fontSize: 40,),),
 		);
 	}
 }
 //-----------------------------------------------------------------------------------------
 class ButtonGroupWidget extends StatelessWidget 
 {
-  	const ButtonGroupWidget({super.key});
+  const ButtonGroupWidget({super.key});
 
-  	@override
-  	Widget build(BuildContext context) 
+  @override
+  Widget build(BuildContext context) 
 	{
 		return Table
 		(
@@ -164,6 +170,6 @@ class ButtonGroupWidget extends StatelessWidget
 				),		
 			],  
 		);
-  	}
+  }
 }
 //-----------------------------------------------------------------------------------------
