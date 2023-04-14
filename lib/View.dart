@@ -163,7 +163,7 @@ class ButtonGroupWidget extends StatelessWidget
 						Padding(padding: EdgeInsets.all(5), child: CalButton(caption: '=', color: Colors.orange, buttonKind: 2,),),
 					],
 				),		
-			],
+			],  
 		);
   	}
 }
