@@ -10,11 +10,11 @@ class DisplayNumValue with ChangeNotifier
   double get fontSize => _fontSize;
 
   void Display(String value, double fontSize) 
-	{
+  {
     _displayValue = value ;
     _fontSize = fontSize ;
     
     notifyListeners();  //<-- 변경 내용을 전파(알림)
-	}
+  }
 }
 //-----------------------------------------------------------------------------------------
