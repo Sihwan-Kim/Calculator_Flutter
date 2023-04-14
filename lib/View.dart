@@ -44,11 +44,10 @@ class DesignPage extends StatelessWidget
 						child: GetBuilder<DisplayNumValue>
 						(
 							builder:(controller) 
-              { return Text(controller.displayValue, 
-                            style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: controller.fontSize,),
-			                      textAlign: TextAlign.right,
-                           ) ; 
-              },
+                            { return Text(controller.displayValue, 
+                                          style: TextStyle(color: Colors.white, backgroundColor: Colors.black, fontSize: controller.fontSize,),
+			                              textAlign: TextAlign.right) ; 
+              				},
 						),
 					),
 					const ButtonGroupWidget(),   // 버튼그룹을 화면에 표시 
